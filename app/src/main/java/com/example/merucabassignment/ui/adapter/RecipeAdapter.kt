@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
@@ -27,10 +28,22 @@ class RecipeAdapter(val list: ArrayList<Recipe>) :
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         lateinit var iv_like: ImageView
         lateinit var iv_saved: ImageView
+        lateinit var iv_recipe_image: ImageView
+        lateinit var ivDelete: ImageView
+
+        lateinit var tv_title: TextView
+        lateinit var tv_publisher_name: TextView
+
+
 
         init {
             iv_like = view.findViewById(R.id.iv_like)
             iv_saved = view.findViewById(R.id.iv_saved)
+            iv_recipe_image = view.findViewById(R.id.iv_recipe_image)
+            tv_title = view.findViewById(R.id.tv_title)
+            tv_publisher_name = view.findViewById(R.id.tv_publisher_name)
+            ivDelete = view.findViewById(R.id.iv_delete)
+
 
         }
 
@@ -58,15 +71,15 @@ class RecipeAdapter(val list: ArrayList<Recipe>) :
 
     override fun onBindViewHolder(holder: RecipeAdapter.ViewHolder, position: Int) {
         val recipe = list.get(position)
-        binding.tvTitle.setText(recipe.title)
-        binding.tvPublisherName.setText(recipe.publisher)
+        holder.tv_title.setText(recipe.title)
+        holder.tv_publisher_name.setText(recipe.publisher)
         Picasso.get().load(recipe.image_url).placeholder(R.drawable.ic_baseline_broken_image_24)
-            .error(R.drawable.ic_baseline_broken_image_24).into(binding.ivRecipeImage)
+            .error(R.drawable.ic_baseline_broken_image_24).into(holder.iv_recipe_image)
         toggleLike(holder.iv_like, recipe.like!!)
         togglesaved(holder.iv_saved, recipe.fav!!)
-        var ivDelete = binding.ivDelete
-        ivDelete.setOnClickListener {
-            AlertDialog.Builder(ivDelete.context)
+
+        holder.ivDelete.setOnClickListener {
+            AlertDialog.Builder( holder.ivDelete.context)
                 .setTitle(CommonUtils.DELETE_ITEM)
                 .setMessage(CommonUtils.DELETE_SUB_ITEM) // Specifying a listener allows you to take an action before dismissing the dialog.
                 // The dialog is automatically dismissed when a dialog button is clicked.

@@ -12,21 +12,21 @@ interface RecipeDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
      fun insertAll(recipe: List<Recipe>)
 
-     @Query("select * from recipe where recipe_type=:type")
+     @Query("select * from recipe where recipe_type=:type  AND isDelete=0")
      fun getReceipe(type:RecipeType): List<Recipe>
 
-    @Query("update recipe set `like`=:like where recipe_id=:id")
+    @Query("update recipe set `like`=:like where recipe_id=:id ")
     fun setLike(like:Boolean,id:String)
 
-    @Query("update recipe set `Fav`=:isSaved where recipe_id=:id")
+    @Query("update recipe set `Fav`=:isSaved where recipe_id=:id ")
     fun saveFav(isSaved:Boolean,id:String)
-    @Query("select * from recipe where fav==1")
+    @Query("select * from recipe where fav==1 AND isDelete=0")
     fun getsaveFav():List<Recipe>
 
 
 
-    @Query("update recipe set `isDelete`=:delete where recipe_id=:id")
-    fun delete(delete:Boolean,id:String)
+    @Query("update recipe set `isDelete`=1 where recipe_id=:id")
+    fun delete(id:String)
 
     @Query("delete from recipe where recipe_type=:type")
     fun deleteAll(type:RecipeType)

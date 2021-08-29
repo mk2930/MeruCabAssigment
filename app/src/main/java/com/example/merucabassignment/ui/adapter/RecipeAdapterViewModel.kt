@@ -23,7 +23,7 @@ class RecipeAdapterViewModel(val db: AppDB) : BaseViewModel() {
     }
     fun deleteItem(recipe: Recipe) {
         uiScope.launch {
-            dao.delete(  true, recipe.recipe_id!!)
+            dao.delete(  recipe.recipe_id!!)
         }
     }
 
