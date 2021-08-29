@@ -21,8 +21,12 @@ class ApiInterceptor(val error: NetWorkErrorCall) : Interceptor {
             400 -> {
                 error.error(CommonUtils.BAD_REQUEST)
             }
+            200->{
+
+            }
 
             else -> {
+
                 error.error(CommonUtils.SOMETHING_WENT_WRONG)
             }
 

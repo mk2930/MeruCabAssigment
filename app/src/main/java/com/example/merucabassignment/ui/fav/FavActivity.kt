@@ -5,15 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.merucabassignment.R
 import com.example.merucabassignment.base.BaseActivity
@@ -21,18 +15,17 @@ import com.example.merucabassignment.data.database.AppDB
 import com.example.merucabassignment.data.model.Recipe
 import com.example.merucabassignment.databinding.ActivityFavBinding
 import com.example.merucabassignment.ui.adapter.RecipeAdapter
-import com.example.merucabassignment.ui.landing.LandingViewModel
 import com.example.merucabassignment.utils.ViewModelFactory
 
 class FavActivity : BaseActivity() {
-    var list=ArrayList<Recipe>()
+    var list = ArrayList<Recipe>()
     lateinit var adapter: RecipeAdapter
-    lateinit var binding:ActivityFavBinding
-    lateinit var vm:FavViewModel
+    lateinit var binding: ActivityFavBinding
+    lateinit var vm: FavViewModel
 
-    companion object{
-        fun launch(activity: Activity){
-            val intent= Intent(activity,FavActivity::class.java)
+    companion object {
+        fun launch(activity: Activity) {
+            val intent = Intent(activity, FavActivity::class.java)
             activity.startActivity(intent)
 
         }
@@ -45,52 +38,51 @@ class FavActivity : BaseActivity() {
     }
 
 
-
     override fun initViewModel() {
 
-        val db= AppDB.getIntance(this)
-        var factory= ViewModelFactory(db!!)
+        val db = AppDB.getIntance(this)
+        var factory = ViewModelFactory(db!!)
         vm =
-            ViewModelProvider(this,factory).get(FavViewModel::class.java)
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_fav)
+            ViewModelProvider(this, factory).get(FavViewModel::class.java)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_fav)
         setSupportActionBar(binding.toolbar)
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
 
-        binding?.lifecycleOwner=this
-        binding?.vm=vm
-        context=this
+        binding?.lifecycleOwner = this
+        binding?.vm = vm
+        context = this
         setViewModel(vm)
-        adapter= RecipeAdapter(list)
-        binding.rvList.layoutManager= LinearLayoutManager(context)
+        adapter = RecipeAdapter(list)
+        binding.rvList.layoutManager = LinearLayoutManager(context)
         binding.rvList.setHasFixedSize(true)
-        binding.rvList.adapter=adapter
+        binding.rvList.adapter = adapter
 
         vm.getAllData()
 
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-       when(item.itemId){
-           android.R.id.home-> {
-               finish();
-           }
-       }
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+            }
+        }
 
         return true
     }
 
+
     override fun observeLivedata() {
-        vm.data.observe(this, Observer {data->
-            if(data.size>0){
-                binding.rvList.visibility= View.VISIBLE
-                binding.tvNodata.visibility= View.GONE
+        vm.data.observe(this, Observer { data ->
+            if (data.size > 0) {
+                binding.rvList.visibility = View.VISIBLE
+                binding.tvNodata.visibility = View.GONE
                 list.addAll(data)
                 adapter.notifyDataSetChanged()
 
-            }
-            else{
-              binding.rvList.visibility= View.GONE
-                binding.tvNodata.visibility= View.VISIBLE
+            } else {
+                binding.rvList.visibility = View.GONE
+                binding.tvNodata.visibility = View.VISIBLE
             }
 
 

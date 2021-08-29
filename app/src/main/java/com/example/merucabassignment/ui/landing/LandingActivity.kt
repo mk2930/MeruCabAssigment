@@ -1,6 +1,8 @@
 package com.example.merucabassignment.ui.landing
 
+import android.R.attr
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -23,6 +25,9 @@ import com.example.merucabassignment.ui.fav.FavActivity
 import com.example.merucabassignment.ui.potato.PotatoViewModel
 import com.example.merucabassignment.utils.CommonUtils
 import com.example.merucabassignment.utils.ViewModelFactory
+import android.widget.Toast
+
+
 
 class LandingActivity : BaseActivity() {
 
@@ -61,6 +66,8 @@ class LandingActivity : BaseActivity() {
         navView.setupWithNavController(navController)
 
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         getMenuInflater().inflate(R.menu.landing_activity_menu, menu);

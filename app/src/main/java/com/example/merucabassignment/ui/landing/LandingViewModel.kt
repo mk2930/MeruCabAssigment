@@ -60,6 +60,7 @@ class LandingViewModel(val db:AppDB) : RecipeViewModel(), LandingViewModelListne
     }
 
     override fun error(errorMessages: String) {
+        showToast.postValue(errorMessages)
 
     }
 

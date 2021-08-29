@@ -89,7 +89,7 @@ class RecipeAdapter(val list: ArrayList<Recipe>) :
                     list.removeAt(position)
                     recipe.isDelete = true;
                     vm.deleteItem(recipe)
-                    notifyItemChanged(position)
+                    notifyDataSetChanged()
 
                 }
                 .setNegativeButton(android.R.string.no, null)

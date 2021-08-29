@@ -1,5 +1,6 @@
 package com.example.merucabassignment.ui.potato
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.example.merucabassignment.data.database.AppDB
 import com.example.merucabassignment.data.model.Recipe
 import com.example.merucabassignment.databinding.FragmentPotatoBinding
 import com.example.merucabassignment.ui.RecipeFragment
+import com.example.merucabassignment.utils.CommonUtils
 import com.example.merucabassignment.utils.ViewModelFactory
 
 class PotatoFragment : RecipeFragment() {
@@ -69,6 +71,8 @@ class PotatoFragment : RecipeFragment() {
 
 
     }
+
+
 
     override fun observeLivedata() {
         vm.data?.observe(this, Observer { data ->
